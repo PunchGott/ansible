@@ -24,7 +24,7 @@
       notify:
         - reload nginx
       become: yes
-      tags: copy`
+      tags: copy
 
   handlers:
     - name: reload nginx
