@@ -1,0 +1,12 @@
+- hosts: webservers
+  gather_facts: no
+  tasks:
+    - name: Remove file (delete file)
+      ansible.builtin.file:
+        path: /home/{{ item.name }}/.gitconfig
+        state: absent
+      become: yes
+      loop:
+        - { name: jaime, email: jaime@mail.com }
+        - { name: sansa, email: sansa@mail.com }
+        - { name: robert, email: robert@mail.com }

@@ -1,0 +1,12 @@
+- hosts: webservers
+  gather_facts: no
+  vars:
+    users:
+      - { name: jaime, email: jaime@mail.com }
+      - { name: sansa, email: sansa@mail.com }
+      - { name: robert, email: robert@mail.com }
+  tasks:
+    - name: add users
+      ansible.builtin.user:
+        name: "{{ item.name }}"
+      loop: "{{ users }}"

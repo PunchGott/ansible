@@ -1,0 +1,12 @@
+- hosts: webservers
+  gather_facts: no
+  tasks:
+    - name: copy .gitconfig to remote servers
+      ansible.builtin.template:
+        src: ./templates/.gitconfig
+        dest: /home/{{ item.name }}/.gitconfig
+      become: yes
+      loop:
+        - { name: jaime, email: jaime@mail.com }
+        - { name: sansa, email: sansa@mail.com }
+        - { name: robert, email: robert@mail.com }
