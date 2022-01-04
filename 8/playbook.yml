@@ -1,0 +1,31 @@
+- hosts: webservers
+  tasks:
+    - name: install nginx
+      ansible.builtin.apt:
+        name: nginx
+        state: present
+      become: yes
+      tags: install
+
+    - name: copy index.html to remote servers
+      ansible.builtin.template:
+        src: ./templates/index.html
+        dest: "{{ root_dir }}/index.html"
+      become: yes
+      tags: copy
+
+    - name: copy nginx.conf to remote servers
+      ansible.builtin.template:
+        src: ./templates/nginx.conf
+        dest: /etc/nginx/nginx.conf
+      notify:
+        - reload nginx
+      become: yes
+      tags: copy
+
+  handlers:
+    - name: reload nginx
+      ansible.builtin.service:
+        name: nginx
+        state: reloaded
+      become: yes
