@@ -12,13 +12,13 @@
 
     - name: copy index.html to remote servers
       ansible.builtin.copy:
-        src: ./templates/index.html
+        src: ./files/index.html
         dest: "{{root_dir}}/index.html"
       become: yes
       tags: copy
 
     - name: copy nginx.conf to remote servers
-      ansible.builtin.copy:
+      ansible.builtin.template:
         src: ./templates/nginx.conf
         dest: /etc/nginx/nginx.conf
       notify:
