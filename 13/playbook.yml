@@ -1,0 +1,21 @@
+- hosts: webservers
+  vars:
+    root_dir: /usr/share/nginx/html
+
+  tasks:
+    - name: install cowsay
+      ansible.builtin.apt:
+        name: cowsay
+        state: present
+        update_cache: yes
+      become: yes
+
+    - name: command cowsay
+      ansible.builtin.command: cowsay "This is server {{ ansible_hostname }}"
+      register: cowsay_result
+
+    - name: template index.html
+      ansible.builtin.template:
+        src: ./templates/index.html
+        dest: "{{ root_dir }}/index.html"
+      become: yes
