@@ -1,0 +1,10 @@
+- hosts: webservers
+  vars:
+    root_dir: /usr/share/nginx/html
+  tasks:
+    - name: copy index.html to remote servers
+      ansible.builtin.template:
+        src: ./templates/index.html
+        dest: "{{ root_dir }}/index.html"
+      become: yes
+      tags: template
